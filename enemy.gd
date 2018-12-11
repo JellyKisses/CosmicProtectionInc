@@ -8,11 +8,11 @@ func _process(delta):
 		if node.dist <= 75:
 			global.hits += 1
 			get_node("Container").remove_child(node)
-			get_parent().get_node("Barrier/Timer").start()
+			get_node("../Barrier/Timer").start()
 			get_node("ExpSfx").play()
 			
 	if global.hits > 25:
-		get_parent().get_parent().get_parent().get_node("UI/GameOver").visible = true
+		get_node("../../../UI/GameOver").visible = true
 		get_tree().paused = true
 	pass
 
