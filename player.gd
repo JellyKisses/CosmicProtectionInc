@@ -1,14 +1,13 @@
 extends Sprite
 
-
 onready var timer_rpm
+onready var bullet = preload("res://Bullet.tscn")
+
 var timer_turn = 0.0
 var timer_turn_time = 1.0
 var timer_turn_start = 0.0
 var dist = 35.0
 var firing = false
-onready var bullet = preload("res://Bullet.tscn")
-
 
 #Start Shooting
 func fire_start():
@@ -29,7 +28,6 @@ func fire_stop():
 	
 func _ready():
 	timer_rpm = get_node("PlayerWeaponTimer")
-	
 	pass
 
 #Process function for the Player/Weapon
@@ -55,7 +53,6 @@ func _process(delta):
 	for node in get_node("Bullets").get_children():
 		node.position.x += delta * 500.0 * cos(node.rotation)
 		node.position.y += delta * 500.0 * sin(node.rotation)
-	
 	pass
 
 func _on_PlayerWeaponTimer_timeout():
@@ -63,11 +60,13 @@ func _on_PlayerWeaponTimer_timeout():
 
 	if global.cooldown < 1.0:
 		var cur = bullet.instance()
+		
 		cur.position.x = global_position.x + (cos(global_rotation) * 10.0)
 		cur.position.y = global_position.y + (sin(global_rotation) * 10.0)
 		cur.rotation = global_rotation + rand_range(-0.05, 0.05)
+		
 		get_node("Bullets").add_child(cur)
 		get_node("BulletSfx").play()
-		global.cooldown += 0.01		
 		
+		global.cooldown += 0.01			
 	pass
