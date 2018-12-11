@@ -1,6 +1,5 @@
 extends Area2D
 
-
 func _on_Area2D_area_entered(area):
 	if area.get_parent().has_meta("role"):
 		get_node("ExpSfx").play()
@@ -25,5 +24,4 @@ func _on_Area2D_area_entered(area):
 					global.score += 10
 					if global.speed > 0.01:
 						global.speed -= 0.01
-		
 	pass
